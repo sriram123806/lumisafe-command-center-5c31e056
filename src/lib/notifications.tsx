@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 
-export type NodeId = "node-01" | "node-02" | "node-03" | "node-04";
+export type NodeId = string;
 
 interface Anomaly {
   id: string;
@@ -20,11 +20,17 @@ interface NotificationContextValue {
 
 const NotificationContext = createContext<NotificationContextValue | null>(null);
 
-const NODE_LABELS: Record<NodeId, string> = {
+const NODE_LABELS: Record<string, string> = {
   "node-01": "Node 01 - Warehouse",
   "node-02": "Node 02 - Back Wall",
   "node-03": "Node 03 - Basement",
   "node-04": "Node 04 - Main Gate",
+  "node-05": "Node 05 - Scrapyard",
+  "node-06": "Node 06 - Parking Lot",
+  "node-07": "Node 07 - Rooftop",
+  "node-08": "Node 08 - Loading Dock",
+  "node-09": "Node 09 - Lobby",
+  "node-10": "Node 10 - Perimeter",
 };
 
 export function NotificationProvider({ children, onAnomaly }: { children: ReactNode; onAnomaly?: (a: Anomaly) => void }) {
@@ -38,7 +44,7 @@ export function NotificationProvider({ children, onAnomaly }: { children: ReactN
     const anomaly: Anomaly = {
       id: `anom-${Date.now()}`,
       nodeId,
-      nodeLabel: NODE_LABELS[nodeId],
+      nodeLabel: NODE_LABELS[nodeId] ?? nodeId,
       type: partial?.type ?? "intrusion",
       severity: partial?.severity ?? "critical",
       timestamp: Date.now(),
@@ -50,7 +56,7 @@ export function NotificationProvider({ children, onAnomaly }: { children: ReactN
   // Auto-trigger a demo anomaly every 45 seconds
   useEffect(() => {
     const interval = setInterval(() => {
-      const nodes: NodeId[] = ["node-01", "node-02", "node-03"];
+      const nodes: NodeId[] = ["node-01", "node-02", "node-03", "node-05", "node-08"];
       triggerAnomaly({ nodeId: nodes[Math.floor(Math.random() * nodes.length)] });
     }, 45000);
     return () => clearInterval(interval);
