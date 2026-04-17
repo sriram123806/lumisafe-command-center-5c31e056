@@ -44,8 +44,7 @@ export function AppSidebar() {
                   active
                     ? "bg-primary text-primary-foreground shadow-sm"
                     : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
-                ].join(" "),
-                ]}
+                ].join(" ")}
               >
                 <Icon className="h-4 w-4 shrink-0" />
                 <span>{label}</span>
