@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Newspaper, ArrowUpRight } from "lucide-react";
 
 export const Route = createFileRoute("/app/news")({
-  component: News;
+  component: News,
 });
 
 interface Item {
