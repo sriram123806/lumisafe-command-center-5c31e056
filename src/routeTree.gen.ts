@@ -9,38 +9,146 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppSurveillanceRouteImport } from './routes/app.surveillance'
+import { Route as AppSettingsRouteImport } from './routes/app.settings'
+import { Route as AppNodesRouteImport } from './routes/app.nodes'
+import { Route as AppNewsRouteImport } from './routes/app.news'
+import { Route as AppMissionRouteImport } from './routes/app.mission'
+import { Route as AppBillingRouteImport } from './routes/app.billing'
+import { Route as AppAnalyticsRouteImport } from './routes/app.analytics'
 
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppSurveillanceRoute = AppSurveillanceRouteImport.update({
+  id: '/surveillance',
+  path: '/surveillance',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppNodesRoute = AppNodesRouteImport.update({
+  id: '/nodes',
+  path: '/nodes',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppNewsRoute = AppNewsRouteImport.update({
+  id: '/news',
+  path: '/news',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppMissionRoute = AppMissionRouteImport.update({
+  id: '/mission',
+  path: '/mission',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppBillingRoute = AppBillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAnalyticsRoute = AppAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/app/analytics': typeof AppAnalyticsRoute
+  '/app/billing': typeof AppBillingRoute
+  '/app/mission': typeof AppMissionRoute
+  '/app/news': typeof AppNewsRoute
+  '/app/nodes': typeof AppNodesRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/surveillance': typeof AppSurveillanceRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/app/analytics': typeof AppAnalyticsRoute
+  '/app/billing': typeof AppBillingRoute
+  '/app/mission': typeof AppMissionRoute
+  '/app/news': typeof AppNewsRoute
+  '/app/nodes': typeof AppNodesRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/surveillance': typeof AppSurveillanceRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/app/analytics': typeof AppAnalyticsRoute
+  '/app/billing': typeof AppBillingRoute
+  '/app/mission': typeof AppMissionRoute
+  '/app/news': typeof AppNewsRoute
+  '/app/nodes': typeof AppNodesRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/surveillance': typeof AppSurveillanceRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/app/analytics'
+    | '/app/billing'
+    | '/app/mission'
+    | '/app/news'
+    | '/app/nodes'
+    | '/app/settings'
+    | '/app/surveillance'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/app'
+    | '/app/analytics'
+    | '/app/billing'
+    | '/app/mission'
+    | '/app/news'
+    | '/app/nodes'
+    | '/app/settings'
+    | '/app/surveillance'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/app/analytics'
+    | '/app/billing'
+    | '/app/mission'
+    | '/app/news'
+    | '/app/nodes'
+    | '/app/settings'
+    | '/app/surveillance'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRoute: typeof AppRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +156,83 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/surveillance': {
+      id: '/app/surveillance'
+      path: '/surveillance'
+      fullPath: '/app/surveillance'
+      preLoaderRoute: typeof AppSurveillanceRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/settings': {
+      id: '/app/settings'
+      path: '/settings'
+      fullPath: '/app/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/nodes': {
+      id: '/app/nodes'
+      path: '/nodes'
+      fullPath: '/app/nodes'
+      preLoaderRoute: typeof AppNodesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/news': {
+      id: '/app/news'
+      path: '/news'
+      fullPath: '/app/news'
+      preLoaderRoute: typeof AppNewsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/mission': {
+      id: '/app/mission'
+      path: '/mission'
+      fullPath: '/app/mission'
+      preLoaderRoute: typeof AppMissionRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/billing': {
+      id: '/app/billing'
+      path: '/billing'
+      fullPath: '/app/billing'
+      preLoaderRoute: typeof AppBillingRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/analytics': {
+      id: '/app/analytics'
+      path: '/analytics'
+      fullPath: '/app/analytics'
+      preLoaderRoute: typeof AppAnalyticsRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
+interface AppRouteChildren {
+  AppAnalyticsRoute: typeof AppAnalyticsRoute
+  AppBillingRoute: typeof AppBillingRoute
+  AppMissionRoute: typeof AppMissionRoute
+  AppNewsRoute: typeof AppNewsRoute
+  AppNodesRoute: typeof AppNodesRoute
+  AppSettingsRoute: typeof AppSettingsRoute
+  AppSurveillanceRoute: typeof AppSurveillanceRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppAnalyticsRoute: AppAnalyticsRoute,
+  AppBillingRoute: AppBillingRoute,
+  AppMissionRoute: AppMissionRoute,
+  AppNewsRoute: AppNewsRoute,
+  AppNodesRoute: AppNodesRoute,
+  AppSettingsRoute: AppSettingsRoute,
+  AppSurveillanceRoute: AppSurveillanceRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRoute: AppRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
